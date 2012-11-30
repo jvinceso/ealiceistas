@@ -28,7 +28,7 @@ class Empleos extends CI_Controller {
 		    );
 		echo $this->jqgrid->get_DatosGrid(
 		        array(
-		            'modelo' => 'bandeja_Model',
+		            'modelo' => 'empleos_model',
 		            'metodo' => 'empleos',
 		            // 'criterios' => array('cUsuNombre' => $nick,'accion' => $param),
 		            'pkid' => 'nEOfId',
