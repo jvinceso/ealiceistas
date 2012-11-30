@@ -1,0 +1,136 @@
+/* Begin Pod-Specific Styling */
+/* Begin Body Styling */
+/*body,
+html{
+	background: #000000;
+}*/
+/* End Body Styling */
+
+/* Begin Logo Section Styling */
+#top{
+	visibility: hidden;
+					position: relative;
+}
+/* End Logo Section Styling */
+
+/* Begin Header Styling */
+/*.header{
+	background-color: #1ca4e3;
+}
+
+.header h1{
+	color: #000000;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);}
+ End Header Styling 
+
+ Begin Category Bar Styling 
+#categories-cont{
+	}
+ End Category Bar Styling 
+
+ Begin About Pod Styling 
+#about-pod{
+	background-color: #cac9c9;
+}
+
+#about-pod #desc h1{
+	color: #000000;
+}
+
+#about-pod #desc h1 a,
+#about-pod #desc h1 a:visited{
+	color: #000000;
+}
+
+#about-pod #desc p{
+	color: #000000;
+}
+
+#about-pod #desc p a,
+#about-pod #desc p a:visited,
+#about-pod #desc li span a,
+#about-pod #desc li span a:visited{
+	color: #3e3e3e;
+}
+
+#about-pod #desc p a:hover,
+#about-pod #desc p a:focus,
+#about-pod #desc li span a:hover,
+#about-pod #desc li span a:focus{
+	color: #000000;
+}*/
+/* End About Pod Styling */
+
+/* Begin Pod Slider Styling */
+#slider-heading{
+	background: #1ca4e3;
+}
+
+#slider-heading p{
+	color: #000000;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);}
+
+#slider-heading .arrow-right{
+	border-left: 58px solid #1ca4e3;
+}
+/* End Pod Slider Styling */
+
+/* Begin Tab Styling */
+/*#tabs{
+	background-color: #1ca4e3;
+}
+
+.tab{
+	border-right: 1px solid #000000;
+}
+
+.tab p{
+	color: #000000;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);}
+
+#tab-cont .current p,
+#tab-cont p:hover,
+#tab-cont p:focus{
+	color: #000000;
+}
+ End Tab Styling 
+
+ Begin Item List Styling 
+#item-list .current,
+#item-list .item:hover,
+#item-list .item:focus{
+	background-color: #7e99a6;
+}
+
+#item-list .current .item-info h1,
+#item-list .current .item-info .views p,
+#item-list .current .item-info .length p,
+.item-descr,
+.item-descr p{
+	color: #ffffff !important;
+}
+
+#item-list{
+	background-color: #cac9c9;
+}
+
+ End Item List Styling 
+
+ Begin Scrollbar Styling 
+.thumb,
+.thumb .end{
+	background-color: #1ca4e3;
+}
+
+.track{
+	background-color: #cac9c9; 
+}
+
+ End Scrollbar Styling 
+
+ Begin Pod Error Styling 
+#error-img #img-info p span{
+	color: #1ca4e3;
+}*/
+/* End Pod Erorr Styling */
+/* End Pod-Specific Styling */ 	 	 	 	 	 	

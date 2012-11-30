@@ -1,0 +1,22 @@
+CREATE  TABLE `bd_aeal`.`profesional_servicio` (
+
+  `nProId` INT NULL AUTO_INCREMENT ,
+
+  `cProNombre` VARCHAR(100) NULL ,
+
+  `cProCarrera` VARCHAR(100) NULL ,
+
+  `cProWeb` VARCHAR(200) NULL ,
+
+  `cProEmail` VARCHAR(100) NULL ,
+
+  `cProDescripcion` TEXT NULL ,
+
+  `cProCurriculum` VARCHAR(200) NULL ,
+
+  PRIMARY KEY (`nProId`) );
+
+ALTER TABLE `bd_aeal`.`profesional_servicio` 
+
+COMMENT = '5' ;
+

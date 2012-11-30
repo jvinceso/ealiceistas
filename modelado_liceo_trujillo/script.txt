@@ -1,0 +1,311 @@
+
+
+DROP SCHEMA IF EXISTS `BD_AEAL` ;
+CREATE SCHEMA IF NOT EXISTS `BD_AEAL` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish2_ci ;
+USE `BD_AEAL` ;
+
+-- -----------------------------------------------------
+-- Table `BD_AEAL`.`aplicaciones`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AEAL`.`aplicaciones` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_AEAL`.`aplicaciones` (
+  `nAplId` INT(11) NOT NULL AUTO_INCREMENT ,
+  `cAplDescripcion` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL ,
+  `cAplImagenUrl` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL ,
+  `cAplEstado` CHAR(1) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL DEFAULT 0 ,
+  PRIMARY KEY (`nAplId`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish2_ci;
+
+
+-- -----------------------------------------------------
+-- Table `BD_AEAL`.`multimedia`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AEAL`.`multimedia` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_AEAL`.`multimedia` (
+  `nMulId` INT(11) NOT NULL AUTO_INCREMENT ,
+  `nMutTipo` INT(11) NULL DEFAULT NULL COMMENT 'MULTITABLA' ,
+  `nMulTipoCategoria` INT(11) NULL DEFAULT NULL COMMENT 'MULTITABLA' ,
+  `cMulLinkMinuatura` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT NULL ,
+  `cMulLink` VARCHAR(2000) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT NULL ,
+  `cMulTitulo` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT NULL ,
+  `cMulDescripcion` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT NULL ,
+  `dMulFechaInicial` DATETIME NULL DEFAULT NULL ,
+  `dMulFechaFinal` DATETIME NULL DEFAULT NULL ,
+  `cMulEstado` CHAR(1) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT 0 ,
+  `nMulOrden` INT(11) NULL DEFAULT NULL ,
+  `cMulRandom` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT NULL ,
+  PRIMARY KEY (`nMulId`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish2_ci;
+
+
+-- -----------------------------------------------------
+-- Table `BD_AEAL`.`multitabla`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AEAL`.`multitabla` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_AEAL`.`multitabla` (
+  `nMutId` INT(11) NOT NULL AUTO_INCREMENT ,
+  `nMulIdPadre` INT(11) NULL DEFAULT NULL ,
+  `cMulDescripcion` VARCHAR(250) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL ,
+  `cMulEstado` CHAR(1) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL DEFAULT 0 ,
+  PRIMARY KEY (`nMutId`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish2_ci;
+
+
+-- -----------------------------------------------------
+-- Table `BD_AEAL`.`ubigeo`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AEAL`.`ubigeo` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_AEAL`.`ubigeo` (
+  `nUbiId` INT(11) NOT NULL AUTO_INCREMENT ,
+  `nMulTipoPais` INT(11) NOT NULL COMMENT 'MULTITABLA--->nMutId: Codigo del pais' ,
+  `cUbiIdDepartamento` CHAR(2) NOT NULL ,
+  `cUbiIdProvincia` CHAR(2) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL ,
+  `cUbiIdDistrito` CHAR(2) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL ,
+  `cUbiDescripcion` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL ,
+  `cUbiEstado` CHAR(1) NOT NULL DEFAULT 0 ,
+  PRIMARY KEY (`nUbiId`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish2_ci;
+
+
+-- -----------------------------------------------------
+-- Table `BD_AEAL`.`persona`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AEAL`.`persona` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_AEAL`.`persona` (
+  `nPerId` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `nUbiId` INT(11) NOT NULL ,
+  `cPerApellidoPaterno` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL ,
+  `cPerApellidoMaterno` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL ,
+  `cPerNombres` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL ,
+  `cPerEstado` CHAR(1) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL DEFAULT 0 ,
+  `cUbiIdDepartamento` CHAR(2) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT NULL ,
+  `cUbiIdProvincia` CHAR(2) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT NULL ,
+  `cUbiIdDistrito` CHAR(2) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT NULL ,
+  `cPerRandom` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT NULL ,
+  PRIMARY KEY (`nPerId`) ,
+  INDEX `fk_persona_ubigeo1_idx` (`nUbiId` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish2_ci;
+
+
+-- -----------------------------------------------------
+-- Table `BD_AEAL`.`usuario`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AEAL`.`usuario` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_AEAL`.`usuario` (
+  `nUsuCodigo` INT(11) NOT NULL AUTO_INCREMENT ,
+  `nPerId` INT(11) NOT NULL ,
+  `cUsuNick` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL ,
+  `cUsuClave` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL ,
+  `nUsuTipo` INT(11) NOT NULL ,
+  `cUsuEstado` CHAR(1) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL DEFAULT 0 ,
+  PRIMARY KEY (`nUsuCodigo`) ,
+  INDEX `fklogin` (`nUsuTipo` ASC) ,
+  INDEX `fk_usuario_persona1_idx` (`nPerId` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish2_ci;
+
+
+-- -----------------------------------------------------
+-- Table `BD_AEAL`.`tipo_noticia`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AEAL`.`tipo_noticia` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_AEAL`.`tipo_noticia` (
+  `nTnoId` INT(11) NOT NULL AUTO_INCREMENT ,
+  `nMulTipoGrupo` INT(11) NOT NULL COMMENT 'MULTITABLA-->SE LLAMABA nNotTipoGrupo' ,
+  `cTnoDescripcion` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT NULL ,
+  `nTnoOrden` INT(11) NOT NULL ,
+  `cTnoEstado` CHAR(1) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT 0 ,
+  PRIMARY KEY (`nTnoId`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish2_ci;
+
+
+-- -----------------------------------------------------
+-- Table `BD_AEAL`.`noticia`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AEAL`.`noticia` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_AEAL`.`noticia` (
+  `nNotId` INT(11) NOT NULL AUTO_INCREMENT ,
+  `nUsuCodigo` INT(11) NOT NULL ,
+  `nTnoId` INT(11) NOT NULL ,
+  `cNotTitulo` VARCHAR(500) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT NULL ,
+  `cNotSumilla` VARCHAR(500) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT NULL ,
+  `cNotContenido` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT NULL ,
+  `dNotfecharegistro` DATETIME NULL DEFAULT NULL ,
+  `dNotFechaInicial` DATETIME NULL DEFAULT NULL ,
+  `dNotFechaFinal` DATETIME NULL DEFAULT NULL ,
+  `cNotLugar` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT NULL ,
+  `cNotHora` TIME NULL DEFAULT NULL ,
+  `cNotEstado` CHAR(1) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT 0 ,
+  `nNotOrden` INT(11) NULL DEFAULT NULL ,
+  `nNotNivelAcceso` INT(11) NULL DEFAULT NULL ,
+  `nNotNumeroAccesos` INT(11) NULL DEFAULT '0' ,
+  `cNotRandom` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT NULL ,
+  PRIMARY KEY (`nNotId`) ,
+  INDEX `fk_noticia_usuario1_idx` (`nUsuCodigo` ASC) ,
+  INDEX `fk_noticia_tipo_noticia1_idx` (`nTnoId` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish2_ci;
+
+
+-- -----------------------------------------------------
+-- Table `BD_AEAL`.`noticia_multimedia`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AEAL`.`noticia_multimedia` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_AEAL`.`noticia_multimedia` (
+  `nNmuId` INT(11) NOT NULL AUTO_INCREMENT ,
+  `nNotId` INT(11) NOT NULL ,
+  `nMulId` INT(11) NOT NULL ,
+  `bNmuEsPrincipal` BIT(1) NOT NULL DEFAULT b'0' ,
+  `cNmuEstado` CHAR(1) NULL DEFAULT 0 ,
+  PRIMARY KEY (`nNmuId`) ,
+  INDEX `fk_noticia_multimedia_noticia1_idx` (`nNotId` ASC) ,
+  INDEX `fk_noticia_multimedia_multimedia1_idx` (`nMulId` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish2_ci;
+
+
+-- -----------------------------------------------------
+-- Table `BD_AEAL`.`noticia_persona`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AEAL`.`noticia_persona` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_AEAL`.`noticia_persona` (
+  `nNpeId` INT(11) NOT NULL AUTO_INCREMENT ,
+  `nNotId` INT(11) NOT NULL ,
+  `nPerId` INT(11) NOT NULL ,
+  `cNpeEstado` CHAR(1) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL DEFAULT 0 ,
+  PRIMARY KEY (`nNpeId`) ,
+  INDEX `fk_noticia_persona_noticia1_idx` (`nNotId` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish2_ci;
+
+
+-- -----------------------------------------------------
+-- Table `BD_AEAL`.`noticias_iconos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AEAL`.`noticias_iconos` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_AEAL`.`noticias_iconos` (
+  `nNicId` INT(11) NOT NULL AUTO_INCREMENT ,
+  `nNotId` INT(11) NOT NULL ,
+  `nNicTipoIcono` INT(11) NOT NULL ,
+  `cNicEstado` CHAR(1) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL ,
+  PRIMARY KEY (`nNicId`) ,
+  INDEX `fk_noticias_iconos_noticia1_idx` (`nNotId` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish2_ci;
+
+
+-- -----------------------------------------------------
+-- Table `BD_AEAL`.`objeto`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AEAL`.`objeto` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_AEAL`.`objeto` (
+  `nObjId` INT(11) NOT NULL AUTO_INCREMENT ,
+  `nAplId` INT(11) NOT NULL ,
+  `cObjNombre` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL ,
+  `cObjNombreArchivo` VARCHAR(200) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL ,
+  `bObjTipo` INT(11) NOT NULL ,
+  `nObjIdPadre` INT(11) NOT NULL ,
+  `cObjEstado` CHAR(1) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL DEFAULT 0 ,
+  PRIMARY KEY (`nObjId`) ,
+  INDEX `fk_objeto_aplicaciones1_idx` (`nAplId` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish2_ci;
+
+
+-- -----------------------------------------------------
+-- Table `BD_AEAL`.`persona_detalle`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AEAL`.`persona_detalle` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_AEAL`.`persona_detalle` (
+  `nPdeId` INT(11) NOT NULL AUTO_INCREMENT ,
+  `nPerId` INT(11) NOT NULL ,
+  `nMulTipoDato` INT(11) NOT NULL COMMENT 'MULTITABLA---->cPdeValor:dni,correo,telefono' ,
+  `cPdeValor` VARCHAR(200) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL DEFAULT NULL ,
+  `cPedEstado` CHAR(1) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NOT NULL DEFAULT 0 ,
+  PRIMARY KEY (`nPdeId`) ,
+  INDEX `fk_persona_detalle_persona1_idx` (`nPerId` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish2_ci;
+
+
+-- -----------------------------------------------------
+-- Table `BD_AEAL`.`persona_juridica`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AEAL`.`persona_juridica` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_AEAL`.`persona_juridica` (
+  `nPerId` INT(11) NOT NULL AUTO_INCREMENT ,
+  PRIMARY KEY (`nPerId`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish2_ci;
+
+
+-- -----------------------------------------------------
+-- Table `BD_AEAL`.`persona_natural`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AEAL`.`persona_natural` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_AEAL`.`persona_natural` (
+  `nPerId` INT(11) NOT NULL ,
+  `bPnaSexo` BIT(1) NOT NULL ,
+  `dPnaFechaNacimiento` DATE NOT NULL ,
+  `dPnaFechaRegistro` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `nPnaEdad` CHAR(2) CHARACTER SET 'utf8' COLLATE 'utf8_spanish2_ci' NULL ,
+  `nPnaEstado` CHAR(1) NOT NULL DEFAULT 0 ,
+  PRIMARY KEY (`nPerId`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish2_ci;
+
+
+-- -----------------------------------------------------
+-- Table `BD_AEAL`.`usuario_objeto`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AEAL`.`usuario_objeto` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_AEAL`.`usuario_objeto` (
+  `nUobId` INT(11) NOT NULL AUTO_INCREMENT ,
+  `nUsuCodigo` INT(11) NOT NULL ,
+  `nObjId` INT(11) NOT NULL ,
+  `dUobFecharegistro` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `bUobEstado` CHAR(1) NOT NULL DEFAULT 0 ,
+  PRIMARY KEY (`nUobId`) ,
+  INDEX `opcionpersona` (`nUobId` ASC) ,
+  INDEX `fk_usuario_objeto_usuario_idx` (`nUsuCodigo` ASC) ,
+  INDEX `fk_usuario_objeto_objeto1_idx` (`nObjId` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish2_ci;
