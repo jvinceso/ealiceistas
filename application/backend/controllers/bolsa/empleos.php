@@ -11,7 +11,8 @@ class Empleos extends CI_Controller {
 		// print_r($this->ObjEmpleo->get_EmpleosOfrecidos());
 		$data['result'] = $this->ObjEmpleo->get_EmpleosOfrecidos();
 		$data['titulo'] = '..::Anuncios Empleos::..';
-		$this->load->view('empleos/qry_view',$data);
+		// $data['grilla'] = $this->load->view('empleos/empleos_view',$data);
+		$this->load->view('empleos/empleos_view',$data);
 		// $this->load->view('layout/template',$data);
 	}
 	public function nuevo(){
@@ -21,24 +22,45 @@ class Empleos extends CI_Controller {
 		$this->ObjEmpleo->set_Empleo(array('cEOfTitulo'=>$param['titulo'],'cEOfDescripcion'=>$param['descripcion'],'cEOfBases'=>$param['base']));
 	}
 	function get_Empleos(){
-		echo $this->ObjEmpleo->get_EmpleosOfrecidos();
 		$opcionesGrid = array(
-		    "Editar"   =>"transferthick-e-w",
-		    "Datos Tramite"   =>"contact",
+		    "Editar"   =>"pencil",
+		    "Datos Tramite"   =>"circle-close",
 		    );
 		echo $this->jqgrid->get_DatosGrid(
 		        array(
-		            'modelo' => 'empleos_model',
-		            'metodo' => 'empleos',
-		            // 'criterios' => array('cUsuNombre' => $nick,'accion' => $param),
+		            'modelo' => 'ObjEmpleo',
+		            'metodo' => 'get_EmpleosOfrecidos',
+		            'criterios' =>'',
 		            'pkid' => 'nEOfId',
 		            // 'cripto' => true,
 		            'opciones' =>$opcionesGrid,
-		            'columns' => array('cEOfTitulo','cEOfSumilla','cEOfTitulo','cEOfDescripcion','cExpNumAnoSigla', 'dEOfFechaRegistro','opcion'),
+		            'columns' => array('cEOfTitulo','cEOfSumilla','cEOfDescripcion','dEOfFechaRegistro','opcion'),
 		            // 'columns' => array('nDocId', 'cExpNumAnoSigla', 'titular','cProNombre', 'cModNombre','cEtaNombre','opcion'),
 		        )
 		); 
 	}
+	public function getById($id){
+		if(isset($id))
+			echo json_encode( $this->ObjEmpleo->getById( $id ) );
+	}
+	public function update() {
+		if( !empty( $_POST ) ) {
+			$this->ObjEmpleo->update();
+			echo 'Registro Actualizado Correctamente!';
+		}
+	}	
+	public function read(){
+		$this->load->view('empleos/empleos_qry_view');
+	}
+	public function delete( $id = null ) {
+		if( is_null( $id ) ) {
+			echo 'ERROR: Identificación no proporcionada.';
+			return;
+		}
+		
+		$this->ObjEmpleo->delete( $id );
+		echo 'Los registros se han borrados con éxito';
+	}	
 	function _Esta_logeado() {
 	    $esta_logeado = $this->session->userdata('esta_logeado');
 	    $nPerID = $this->session->userdata('nPerID');

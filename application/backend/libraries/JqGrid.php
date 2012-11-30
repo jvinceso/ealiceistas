@@ -201,8 +201,7 @@ class JqGrid {
         $grid .= "});";
 //NavBar
         //$grid .= " $('#$buildDivName').jqGrid('navGrid','#pager',{search:true,edit:false,add:true,del:true});";
-        $grid .= "$('#$buildDivName').jqGrid('navGrid',$pager,{search:false,edit:false,add:false,del:false}, {} 
-)";
+        $grid .= "$('#$buildDivName').jqGrid('navGrid',$pager,{search:false,edit:false,add:false,del:false}, {})";
 
         if (!empty($buildCustomButtons)) {
             foreach ($buildCustomButtons as $customButton) {
@@ -304,7 +303,7 @@ $('#$buildDivName').trigger('reloadGrid');
                         $opciones = $aData['opciones'];
                         $opciondefault = "";
                         foreach ($opciones as $key => $value) {
-                            $opciondefault.='<span id="' . rand(176, 53453) . '" data-placement="top" class="ui-icon ui-icon-' . $value . ' tip icogrid"  data-original-title="' . $key . '" ></span>';
+                            $opciondefault.='<span id="' . rand(176, 53453) . '" style="display:inline-table;" data-placement="top" class="ui-icon ui-icon-' . $value . ' tip icogrid"  data-original-title="' . $key . '" ></span>';
                             // $opciondefault.='<span id="' . rand(176, 53453) . '" data-placement="right" class="ui-icon ui-icon-' . $value . ' tip icogrid"  data-original-title="' . $key . '" ></span>';
                         }
                         $r = array_merge((array) $row, array('opcion' => $opciondefault));

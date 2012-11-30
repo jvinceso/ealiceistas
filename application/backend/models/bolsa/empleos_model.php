@@ -36,7 +36,7 @@ class Empleos_model extends CI_Model {
 		$this->cEOfBases=$cEOfBases;
 	}
 	public function get_EmpleosOfrecidos(){
-		$result = $this->db->query('select  nEOfId,cEOfTitulo,cEOfDescripcion,cEOfBases from empleo_ofrecido where nEOdEstado=1');
+		$result = $this->db->get('empleo_ofrecido');
 		if($result){
 			return $result->result_array();
 		}
@@ -44,6 +44,47 @@ class Empleos_model extends CI_Model {
 	public function set_Empleo($data){
 		$this->db->insert('empleo_ofrecido',$data);
 	}
+
+	public function getAll() {
+	    //Obtiene Todos Los Registros de la Tabla empleo_ofrecido
+	    $query = $this->db->get( 'empleo_ofrecido' );
+	    
+	    if( $query->num_rows() > 0 ) {
+	        return $query->result();
+	    } else {
+	        return array();
+	    }
+	} //end getAll
+	public function delete( $id ) {
+		/*
+		* Cualquier carácter que no sea dígito será excluido después de pasar $ id
+		* De la función intval. Esto se hace por razones de seguridad.
+		*/
+	    $id = intval( $id );
+	    
+	    // $this->db->delete( 'empleo_ofrecido', array( 'nEOfId' => $id ) );
+	    $this->db->where('nEOfId', $id);
+		$this->db->update('empleo_ofrecido',array('nEOdEstado'=>'0')); 
+	} //end delete
+	public function getById($id){
+		$id = intval( $id );
+		
+		$query = $this->db->where( 'nEOfId', $id )->limit( 1 )->get( 'empleo_ofrecido' );
+		
+		if( $query->num_rows() > 0 ) {
+		    return $query->row();
+		} else {
+		    return array();
+		}		
+	}
+	public function update() {
+	    $data = array(
+	        'name' => $this->input->post( 'name', true ),
+	        'email' => $this->input->post( 'email', true )
+	    );
+	    
+	    $this->db->update( 'users', $data, array( 'id' => $this->input->post( 'id', true ) ) );
+	}	
 /* End of file empleos_model.php */
 /* Location: ./application/backend/models/bolsa/empleos_model.php */
 

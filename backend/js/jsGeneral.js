@@ -165,8 +165,8 @@ function set_popup(url,title,ancho,alto,parametro,func_close){
     var b = 100;
     var randomnumber = (a+Math.floor(Math.random()*b));
  
-    $(".popedit" ).remove();
-    $(".popedit" ).dialog( "destroy" ); 
+//    $(".popedit" ).remove();
+//    $(".popedit" ).dialog( "destroy" ); 
     $("body").append("<div id='popupEdicion"+randomnumber+"' class='popedit' title='"+title+"'></div>");           
     $("#popupEdicion"+randomnumber).dialog({          
         autoOpen:false,      
@@ -453,4 +453,43 @@ function deshabilitaPegar(obj){
     $(obj).bind('contextmenu', function(e){
         return false;
     }); 
+}
+
+function ValidaCKEditor(IdTextArea){
+    CKEDITOR.instances[IdTextArea].updateElement();
+}
+
+
+function NewCKEditor(IdTextArea){
+    //CKEditor
+    var instance = CKEDITOR.instances[IdTextArea];
+    if (instance) {
+        CKEDITOR.remove(CKEDITOR.instances[IdTextArea]);
+    }
+    $( '#'+IdTextArea ).ckeditor({
+        toolbar : 'Full'//CKEditorBasic sirve para poner la barra de botones en basica
+    });
+//CKEditor
+}
+
+function ClearCKEditor(IdTextArea){
+    var editor = CKEDITOR.instances[IdTextArea];
+    if (editor) {
+        editor.destroy(true);
+    }
+//    CKEDITOR.replace(IdTextArea);
+    NewCKEditor(IdTextArea)
+}
+
+function MostrarOcultarCapas(ObjOcultar,ObjMostrar,fnOcultar,fnMostrar){
+    $(ObjOcultar).hide('slide',100,function(){
+        $(".tooltip").removeClass("in");
+        $(".tooltip").addClass("out");        
+        eval(fnOcultar);
+    });
+    $(ObjMostrar).show('slide',1000,function(){
+        $(".tooltip").removeClass("in");
+        $(".tooltip").addClass("out");
+        eval(fnOcultar)
+    });        
 }

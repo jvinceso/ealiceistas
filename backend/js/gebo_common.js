@@ -59,8 +59,13 @@
 		
 		//* style switcher
 		gebo_style_sw.init();
+
+		//Editor cleditor
+		jvinces_editor.init();
+		jvinces_calendar.init();
+
 	});
-    
+	    
     gebo_sidebar = {
         init: function() {
 			// sidebar onload state
@@ -371,3 +376,26 @@
 			})
 		}
 	};
+	jvinces_editor ={
+		init:function(){
+			// - cleditor
+			$(".cleditor").each(function(){
+				if($(this).length > 0){
+					$(this).cleditor({
+						width:'auto'
+					});
+				}			
+				
+			})
+		}
+	};
+	jvinces_calendar={
+		init:function(){
+			$('.datepick').each(function(){
+				// - datepicker
+				if($('.datepick').length > 0){
+				    $('.datepick').datepicker($.datepicker.regional[ "es" ] );	
+				}				
+			});
+		}
+	}

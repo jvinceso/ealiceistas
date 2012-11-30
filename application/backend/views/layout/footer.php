@@ -37,7 +37,7 @@
                                             <ul class="nav nav-list">';
                                             for ($j = 0; $j < $count2; $j++) {
                                             ?>                              
-                                                <li <?php echo $opciones[$i]["datos"][$j]["li"]; ?>>
+                                                <li <?php echo $opciones[$i]["datos"][$j]["li"];?> >
                                                     <a href="<?php echo $opciones[$i]["datos"][$j]["url"]; ?>"><?php echo $opciones[$i]["datos"][$j]["value"]; ?></a>
                                                 </li>
                                             <?php

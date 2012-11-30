@@ -29,7 +29,7 @@
         <link rel="stylesheet" href="<?php echo URL_CSS; ?>style.css" />
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans" />
         <!-- Jqgrid -->
-        <link rel="stylesheet" href="<?php echo URL_JS; ?>ui.jqgrid.css" />
+        <link rel="stylesheet" href="<?php echo URL_JS; ?>jqgrid/ui.jqgrid.css" />
         <!-- Favicon -->
         <link rel="shortcut icon" href="<?php echo URL_IMG?>favicon.ico" />
 
@@ -44,11 +44,13 @@
             //* hide all elements & show preloader
             document.documentElement.className += 'js';
         </script>
-
+        <!-- Idiomas Jquery -->
         <script type="text/javascript" src='<?php echo URL_JS; ?>jquery-1.8.1.min.js'></script>
         <script type="text/javascript" src="<?php echo URL_JS; ?>jquery-ui-1.8.23.min.js"></script>
         <!-- smart resize event -->
         <script src="<?php echo URL_JS; ?>jquery.debouncedresize.min.js"></script>
+        <!-- cleditor -->
+        <script src="<?php echo URL_JS?>jquery.cleditor.min.js"></script>
         <!-- hidden elements width/height -->
         <script src="<?php echo URL_JS; ?>jquery.actual.min.js"></script>
         <!-- js cookie plugin -->
@@ -85,17 +87,19 @@
         <!-- dashboard functions -->
         <script src="<?php echo URL_JS; ?>gebo_dashboard.js"></script>
         <script src="<?php echo URL_JS; ?>jquery.validate.min.js"></script>
-
+        <!-- Scripts para JQuery Grid -->
+        <script src="<?php echo URL_JS; ?>jquery-ui-1.8.23.min.js"></script>
         <script src="<?php echo URL_JS; ?>jqgrid/grid.locale-es.js"></script>
         <script src="<?php echo URL_JS; ?>jqgrid/jquery.jqGrid.min.js"></script>
         <!-- <script src="<?php echo URL_JS; ?>menu.js"></script> -->
+        <script src="<?php echo URL_JS; ?>jsGeneral.js"></script>
         <script>
             $(document).ready(function() {
                 //* show all elements & remove preloader
                 setTimeout('$("html").removeClass("js")',500);
             });
         </script>
-
+        <link rel="stylesheet" href='<?php echo URL_CSS; ?>jquery-ui-1.8.23.custom.css'>
     </head>
     <body>
         <div id="loading_layer" style="display:none"><img src="<?php echo URL_IMG ?>/ajax_loader.gif" alt="" /></div>
@@ -379,6 +383,7 @@
                 </div>
             </header>
 
+            
             <!-- main content -->
             <div id="contentwrapper">
                 <div class="main_content">

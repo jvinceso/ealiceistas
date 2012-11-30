@@ -147,21 +147,21 @@ require_once('Aplicacion_model.php');
         	$opciones="";
         	$url = $this->session->userdata('url');       
         	// echo"URL_SESSION<br>";print_r($url);echo"<br>END<br>";
-			$query = $this->db->query("SELECT * FROM aplicaciones WHERE cAplEstado='1'");  
+			$query = $this->db->where("cAplEstado","1")->get("aplicaciones");  
         	foreach ($query->result() as $row){
         		$opt = $this->listaSubMenus('W',$row->nAplId);
 				if($opt != null){ 
 					$active ='';
 					$opciones='';
-					$body='class="accordion-body collapse"';
+					$body='class="accordion-body collapse" style="height:0;" ';
 					$array = array();
 					foreach ($opt->result() as $opcion){
 						if($url){
 							// print_r($opcion->cOdetNombreArchivo);echo"<br>";
 							if(!strcmp($opcion->cOdetNombreArchivo, $url)){
-								$active = 'db_h_active';
+								$active = 'sdb_h_active';
 								// echo $active;
-								$body='class="accordion-body in collapse" style="display:block"';
+								$body='class="accordion-body in collapse" style="height:auto;"';
 								$opciones = '';
 								// $opciones = 'class="sdb_h_active"';
 							}
