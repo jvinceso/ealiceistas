@@ -36,7 +36,7 @@ class Empleos_model extends CI_Model {
 		$this->cEOfBases=$cEOfBases;
 	}
 	public function get_EmpleosOfrecidos(){
-		$result = $this->db->get('empleo_ofrecido');
+		$result = $this->db->where('nEOdEstado',1)->get('empleo_ofrecido');
 		if($result){
 			return $result->result_array();
 		}
@@ -47,7 +47,7 @@ class Empleos_model extends CI_Model {
 
 	public function getAll() {
 	    //Obtiene Todos Los Registros de la Tabla empleo_ofrecido
-	    $query = $this->db->get( 'empleo_ofrecido' );
+	    $query = $this->db->where('nEOdEstado',1)->get( 'empleo_ofrecido' );
 	    
 	    if( $query->num_rows() > 0 ) {
 	        return $query->result();
@@ -61,15 +61,19 @@ class Empleos_model extends CI_Model {
 		* De la función intval. Esto se hace por razones de seguridad.
 		*/
 	    $id = intval( $id );
-	    
+	    // print_r($id);
 	    // $this->db->delete( 'empleo_ofrecido', array( 'nEOfId' => $id ) );
+	    // $this->db;
+	    $data = array('nEOdEstado' => 0);
+
 	    $this->db->where('nEOfId', $id);
-		$this->db->update('empleo_ofrecido',array('nEOdEstado'=>'0')); 
+	    $this->db->update('empleo_ofrecido', $data); 	    
+		// $this->db->where('', $id)->update('empleo_ofrecido',array('nEOdEstado','0')); 
 	} //end delete
 	public function getById($id){
 		$id = intval( $id );
 		
-		$query = $this->db->where( 'nEOfId', $id )->limit( 1 )->get( 'empleo_ofrecido' );
+		$query = $this->db->where( array('nEOfId'=>$id,'nEOdEstado' => 1) )->limit( 1 )->get( 'empleo_ofrecido' );
 		
 		if( $query->num_rows() > 0 ) {
 		    return $query->row();

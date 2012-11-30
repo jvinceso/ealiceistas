@@ -303,7 +303,7 @@ $('#$buildDivName').trigger('reloadGrid');
                         $opciones = $aData['opciones'];
                         $opciondefault = "";
                         foreach ($opciones as $key => $value) {
-                            $opciondefault.='<span id="' . rand(176, 53453) . '" style="display:inline-table;" data-placement="top" class="ui-icon ui-icon-' . $value . ' tip icogrid"  data-original-title="' . $key . '" ></span>';
+                            $opciondefault.='<span id="' . rand(176, 53453) . '" style="cursor:pointer;display:inline-table;" data-placement="top" class="ui-icon ui-icon-' . $value . ' tip icogrid"  data-original-title="' . $key . '" ></span>';
                             // $opciondefault.='<span id="' . rand(176, 53453) . '" data-placement="right" class="ui-icon ui-icon-' . $value . ' tip icogrid"  data-original-title="' . $key . '" ></span>';
                         }
                         $r = array_merge((array) $row, array('opcion' => $opciondefault));
