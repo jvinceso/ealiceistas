@@ -29,12 +29,12 @@ class Empleos extends CI_Controller {
 		echo $this->jqgrid->get_DatosGrid(
 		        array(
 		            'modelo' => 'bandeja_Model',
-		            'metodo' => 'bandejaPersonalGet',
-		            'criterios' => array('cUsuNombre' => $nick,'accion' => $param),
-		            'pkid' => 'nDocId',
+		            'metodo' => 'empleos',
+		            // 'criterios' => array('cUsuNombre' => $nick,'accion' => $param),
+		            'pkid' => 'nEOfId',
 		            // 'cripto' => true,
 		            'opciones' =>$opcionesGrid,
-		            'columns' => array('nDocId', 'nMovId','nEprId','nEpoId','nProId','cExpNumAnoSigla', 'titular','cProNombre', 'cModNombre','cEtaNombre','opcion'),
+		            'columns' => array('cEOfTitulo','cEOfSumilla','cEOfTitulo','cEOfDescripcion','cExpNumAnoSigla', 'dEOfFechaRegistro','opcion'),
 		            // 'columns' => array('nDocId', 'cExpNumAnoSigla', 'titular','cProNombre', 'cModNombre','cEtaNombre','opcion'),
 		        )
 		); 
