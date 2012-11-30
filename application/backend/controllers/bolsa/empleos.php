@@ -6,11 +6,6 @@ class Empleos extends CI_Controller {
 	    parent::__construct();
 	    $this->_Esta_logeado(); 
 		$this->load->model('bolsa/empleos_model','ObjEmpleo');
-/*		$this->load->helper('form');
-		$this->load->library('form_validation');
-		$this->load->library('email');
-		$this->load->library('table');*/
-		// $this->load->model('usuario_model', 'objUsuario');		
 	}	
 	public function index(){
 		// print_r($this->ObjEmpleo->get_EmpleosOfrecidos());
@@ -26,7 +21,23 @@ class Empleos extends CI_Controller {
 		$this->ObjEmpleo->set_Empleo(array('cEOfTitulo'=>$param['titulo'],'cEOfDescripcion'=>$param['descripcion'],'cEOfBases'=>$param['base']));
 	}
 	function get_Empleos(){
-		echo json_encode($this->ObjEmpleo->get_EmpleosOfrecidos());
+		echo $this->ObjEmpleo->get_EmpleosOfrecidos();
+		$opcionesGrid = array(
+		    "Editar"   =>"transferthick-e-w",
+		    "Datos Tramite"   =>"contact",
+		    );
+		echo $this->jqgrid->get_DatosGrid(
+		        array(
+		            'modelo' => 'bandeja_Model',
+		            'metodo' => 'bandejaPersonalGet',
+		            'criterios' => array('cUsuNombre' => $nick,'accion' => $param),
+		            'pkid' => 'nDocId',
+		            // 'cripto' => true,
+		            'opciones' =>$opcionesGrid,
+		            'columns' => array('nDocId', 'nMovId','nEprId','nEpoId','nProId','cExpNumAnoSigla', 'titular','cProNombre', 'cModNombre','cEtaNombre','opcion'),
+		            // 'columns' => array('nDocId', 'cExpNumAnoSigla', 'titular','cProNombre', 'cModNombre','cEtaNombre','opcion'),
+		        )
+		); 
 	}
 	function _Esta_logeado() {
 	    $esta_logeado = $this->session->userdata('esta_logeado');
