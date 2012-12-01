@@ -15,11 +15,51 @@ class Empleos extends CI_Controller {
 		$this->load->view('empleos/empleos_view',$data);
 		// $this->load->view('layout/template',$data);
 	}
-	public function nuevo(){
-		// $data['titulo'] = '..::Registrar Empleos::..';
-		// $this->load->view('empleos/ins_view',$data);		
-		$param = $this->input->post('json');
-		$this->ObjEmpleo->set_Empleo(array('cEOfTitulo'=>$param['titulo'],'cEOfDescripcion'=>$param['descripcion'],'cEOfBases'=>$param['base']));
+	public function create(){
+		$status = "";
+		$msg = "";
+		$file_element_name = 'upbase';
+		$config['upload_path'] = './files/';
+		$config['allowed_types'] = 'pdf|jpg|png|doc|txt';
+		$config['max_size']  = 1024 * 8;
+		$config['encrypt_name'] = TRUE;
+		
+		$this->load->library('upload', $config);
+		
+		if (!$this->upload->do_upload($file_element_name))
+		{
+		   $status = 'error';
+		   $msg = $file_element_name;
+		   // $msg = $this->upload->display_errors('', '');
+		}
+		else
+		{
+		   $data = $this->upload->data();
+		   $info = array(
+		   	'cEOfBases'         => $data['file_name'],
+		   	'cEOfDescripcion'   => $this->input->post('descripcion'),
+		   	'cEOfSumilla'  	    => $this->input->post('sumilla'),
+		   	'cEOfTitulo'   	    => $this->input->post('titulo'),
+		   	'dEOfFechaLimite'   => date('Y-m-d',strtotime($this->input->post('fechalim'))),
+		   	// 'dEOfFechaLimite'   => date("Y-m-d",strtotime(str_replace('/', '-', $this->input->post('fechalim')))),
+		   	'nEOdEstado'		=> '1'
+		   	);
+		   $file_id = $this->ObjEmpleo->create($info);
+		   // $msg = json_encode($file_id);
+		   if($file_id)
+		   {
+		      $status = "success";
+		      $msg = "Empleo registrado";
+		   }
+		   else
+		   {
+		      unlink($data['full_path']);
+		      $status = "error";
+		      $msg = "Something went wrong when saving the file, please try again.";
+		   }
+		}
+		@unlink($_FILES[$file_element_name]);	
+		echo json_encode(array('status' => $status, 'msg' => $msg));			
 	}
 	function get_Empleos(){
 		$opcionesGrid = array(
@@ -61,7 +101,7 @@ class Empleos extends CI_Controller {
 		$this->ObjEmpleo->delete( $id );
 		echo 'Los registros se han borrados con éxito';
 	}	
-	function _Esta_logeado() {
+	public function _Esta_logeado() {
 	    $esta_logeado = $this->session->userdata('esta_logeado');
 	    $nPerID = $this->session->userdata('nPerID');
 	    if ($esta_logeado != true OR $nPerID = '') {

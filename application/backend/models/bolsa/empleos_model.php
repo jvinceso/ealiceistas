@@ -41,9 +41,9 @@ class Empleos_model extends CI_Model {
 			return $result->result_array();
 		}
 	}
-	public function set_Empleo($data){
+/*	public function set_Empleo($data){
 		$this->db->insert('empleo_ofrecido',$data);
-	}
+	}*/
 
 	public function getAll() {
 	    //Obtiene Todos Los Registros de la Tabla empleo_ofrecido
@@ -82,13 +82,25 @@ class Empleos_model extends CI_Model {
 		}		
 	}
 	public function update() {
-	    $data = array(
-	        'name' => $this->input->post( 'name', true ),
-	        'email' => $this->input->post( 'email', true )
+		
+		$data = array(
+	        'cEOfTitulo' => $this->input->post( 'txt_upd_requerimiento', true ),
+	        'dEOfFechaLimite' => $this->input->post( 'txt_upd_flimit', true ),
+	        'cEOfSumilla' => $this->input->post( 'txt_upd_sumilla', true ),
+	        'cEOfDescripcion' => $this->input->post( 'txt_upd_descripcion', true ),
+	        'cEOfBases' => $this->input->post( 'txt_perfil_up', true ),
 	    );
-	    
-	    $this->db->update( 'users', $data, array( 'id' => $this->input->post( 'id', true ) ) );
+
+	    $this->db->update( 'empleo_ofrecido', $data, array( 'nEOfId' => $this->input->post( 'txt_upd_nEmplId', true ) ) );
 	}	
+	public function create($data){
+		// print_r($data);exit();
+		// $sql = "INSERT INTO `bd_aeal`.`empleo_ofrecido`(`cEOfBases`,`cEOfDescripcion`,`cEOfSumilla`,`cEOfTitulo`,`dEOfFechaLimite`,`nEOdEstado`)VALUES('".$data['cEOfBases']."','".$data['cEOfDescripcion']."','".$data['cEOfSumilla']."','".$data['cEOfTitulo']."','".$data['dEOfFechaLimite']."','".$data['nEOdEstado']."');";
+		// $this->db->query($sql);
+		$this->db->insert('empleo_ofrecido',$data);
+		return $this->db->insert_id();
+		// return $sql;
+	}
 /* End of file empleos_model.php */
 /* Location: ./application/backend/models/bolsa/empleos_model.php */
 

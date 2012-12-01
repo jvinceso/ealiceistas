@@ -8,8 +8,10 @@ $(document).ready(function(){
 	$('#anc_listar').click(function(e){
 		e.preventDefault();
 		$("#c_frm_nuevo").fadeOut('slow');
+			readEmpleos();
 		$("#c_frm_listado").fadeIn('slow');
 	});
+
 	$('#frm_empleo').validate({
 		rules: {
 			titulo: {required:true},
@@ -17,25 +19,31 @@ $(document).ready(function(){
 			upbase: {required:true}
 		},
 		submitHandler: function( form ) {
-			$.ajax({
-				url: 'empleos/nuevo',
-				type: 'POST',
-				data: {
-					json:{
-						titulo : $('#titulo').val(),
-						descripcion : $('#descripcion').val(),
-						base: $('#upbase').val()
-					}
-				} ,
-
-				success: function( response ) {
-					if(response!=0){
-						$("#mensaje").html("datos guardados").fadeOut('slow');					
-					}else{
-						console.log(response);
-					}
-				}
-			});
+			// console.log($(form).serialize());
+			$.ajaxFileUpload({
+			   url         	  :'empleos/create', 
+			   secureuri      :false,
+			   fileElementId  :'upbase',
+			   dataType    	  : 'json',
+			   data        : {
+			      'titulo'       : $('#titulo').val(),
+			      'sumilla'		 : $('#sumilla').val(),
+			      'descripcion'  : $('#descripcion').val(),
+			      'fechalim'	 : $('#fechalim').val()
+			   },
+			   success  : function (data, status)
+			   {
+			      if(data.status != 'error')
+			      {
+			      	$( '#msgDialog > p' ).html( 'Datos Registrados' );
+			      	$( '#msgDialog' ).dialog( 'option', 'title', 'Success' ).dialog( 'open' );
+			         // refresh_files();
+			         $( '#frm_empleo form input' ).val( '' );
+			      }else{
+			      	alert(data.msg);			      	
+			      }
+			   }
+			});			
 		}
 	});
 });
@@ -60,9 +68,9 @@ $(function(){
 
 	$( '#editDialog' ).dialog({
 		autoOpen: false,
-	    // modal:true,
+	    modal:true,
 	    buttons: {
-	    	'Update': function() {
+	    	'Actualizar': function() {
 	    		$( '#ajaxLoadAni' ).fadeIn( 'slow' );
 	    		$( this ).dialog( 'close' );
 
@@ -88,7 +96,7 @@ $(function(){
 	            }); //end ajax()
 	    	},
 
-	    	'Cancel': function() {
+	    	'Cancelar': function() {
 	    		$( this ).dialog( 'close' );
 	    	}
 	    },
@@ -119,10 +127,6 @@ $(function(){
                         $( '#msgDialog > p' ).html( response );
                         $( '#msgDialog' ).dialog( 'option', 'title', 'Success' ).dialog( 'open' );
                         readEmpleos();
-/*                        $( 'a[href=' + delHref + ']' ).parents( 'tr' )
-                        .fadeOut( 'slow', function() {
-                        	$( this ).remove();
-                        });*/
                         
                     } //end success
                 });
@@ -182,22 +186,7 @@ function readEmpleos() {
     	url: readUrl,
         // dataType: 'json',
         success: function( response ) {
-        	$("#grid_empleos_ofrecidos").html(response);
-/*            for( var i in response ) {
-                response[ i ].updateLink = updateUrl + '/' + response[ i ].id;
-                response[ i ].deleteLink = delUrl + '/' + response[ i ].id;
-            }
-            
-            //clear old rows
-            $( '#records > tbody' ).html( '' );
-            
-            //append new rows
-            $( '#readTemplate' ).render( response ).appendTo( "#records > tbody" );
-            
-            //apply dataTable to #records table and save its object in dataTable variable
-            if( typeof dataTable == 'undefined' )
-            	dataTable = $( '#records' ).dataTable({"bJQueryUI": true});*/
-            
+        	$("#grid_empleos_ofrecidos").html(response);           
             //hide ajax loader animation here...
             $( '#ajaxLoadAni' ).fadeOut( 'slow' );
         }
