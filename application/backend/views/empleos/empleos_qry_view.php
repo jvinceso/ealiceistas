@@ -9,6 +9,7 @@ $Tabla = array(
 		array('label' => 'Sumilla', 'name' => 'cEOfSumilla','width' => 200),
 		array('label' => 'Descripcion Puesto', 'name' => 'cEOfDescripcion','width' => 350),
 		array('label' => 'Fecha Registro', 'name' => 'dEOfFechaRegistro','width' => 105),
+		array('label' => 'Fecha Limite', 'name' => 'dEOfFechaLimite','width' => 105),
 		array('label' => 'Opciones', 'name' => 'opcion', 'width' => 90, 'align' => 'center')
 		),
 	'sort_name' =>     'dEOfFechaRegistro',

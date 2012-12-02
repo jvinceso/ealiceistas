@@ -36,7 +36,12 @@ class Empleos_model extends CI_Model {
 		$this->cEOfBases=$cEOfBases;
 	}
 	public function get_EmpleosOfrecidos(){
-		$result = $this->db->where('nEOdEstado',1)->get('empleo_ofrecido');
+// $this->db->from($this->table_name);
+
+// $query = $this->db->get(); 
+// return $query->result();
+		// $this->db
+		$result = $this->db->where('nEOdEstado',1)->order_by("dEOfFechaRegistro", "desc")->get('empleo_ofrecido');
 		if($result){
 			return $result->result_array();
 		}
@@ -58,17 +63,14 @@ class Empleos_model extends CI_Model {
 	public function delete( $id ) {
 		/*
 		* Cualquier carácter que no sea dígito será excluido después de pasar $ id
-		* De la función intval. Esto se hace por razones de seguridad.
+		* por la función intval. Esto se hace por razones de seguridad.
 		*/
 	    $id = intval( $id );
-	    // print_r($id);
-	    // $this->db->delete( 'empleo_ofrecido', array( 'nEOfId' => $id ) );
-	    // $this->db;
+
 	    $data = array('nEOdEstado' => 0);
 
 	    $this->db->where('nEOfId', $id);
 	    $this->db->update('empleo_ofrecido', $data); 	    
-		// $this->db->where('', $id)->update('empleo_ofrecido',array('nEOdEstado','0')); 
 	} //end delete
 	public function getById($id){
 		$id = intval( $id );
@@ -81,17 +83,9 @@ class Empleos_model extends CI_Model {
 		    return array();
 		}		
 	}
-	public function update() {
-		
-		$data = array(
-	        'cEOfTitulo' => $this->input->post( 'txt_upd_requerimiento', true ),
-	        'dEOfFechaLimite' => $this->input->post( 'txt_upd_flimit', true ),
-	        'cEOfSumilla' => $this->input->post( 'txt_upd_sumilla', true ),
-	        'cEOfDescripcion' => $this->input->post( 'txt_upd_descripcion', true ),
-	        'cEOfBases' => $this->input->post( 'txt_perfil_up', true ),
-	    );
-
-	    $this->db->update( 'empleo_ofrecido', $data, array( 'nEOfId' => $this->input->post( 'txt_upd_nEmplId', true ) ) );
+	public function update($data,$id) {
+	    $this->db->update( 'empleo_ofrecido', $data, array( 'nEOfId' => $id ) );
+	    return $this->db->affected_rows();
 	}	
 	public function create($data){
 		// print_r($data);exit();
@@ -101,6 +95,36 @@ class Empleos_model extends CI_Model {
 		return $this->db->insert_id();
 		// return $sql;
 	}
+
+	public function delete_file($file_id)
+	{
+	   $file = $this->get_file($file_id);
+	   unlink('./files/' . $file->cEOfBases);  
+	   return TRUE;
+	}
+	public function delete_file_by_name($name)
+	{
+	   unlink('./files/' . $name);  
+	   return TRUE;
+	}
+	 
+	public function get_file($file_id)
+	{
+		// $query = new stdClass();
+	   $query= $this->db->select()
+	         ->from('empleo_ofrecido')
+	         ->where('nEOfId', $file_id)
+	         ->get()
+	         ->row();
+	         // print_r($query);exit();
+		$this->set_nEOfId($query->nEOfId);
+		$this->set_cEOfTitulo($query->cEOfTitulo);
+		$this->set_cEOfDescripcion($query->cEOfDescripcion);
+		$this->set_cEOfBases($query->cEOfBases);
+		return $query;	         
+	}
+
+
 /* End of file empleos_model.php */
 /* Location: ./application/backend/models/bolsa/empleos_model.php */
 

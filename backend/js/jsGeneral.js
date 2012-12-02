@@ -493,3 +493,10 @@ function MostrarOcultarCapas(ObjOcultar,ObjMostrar,fnOcultar,fnMostrar){
         eval(fnOcultar)
     });        
 }
+function cleanForm(objForm){
+    $(':input',objForm)
+     .not(':button, :submit, :reset, :hidden')
+     .val('')
+     .removeAttr('checked')
+     .removeAttr('selected');    
+}

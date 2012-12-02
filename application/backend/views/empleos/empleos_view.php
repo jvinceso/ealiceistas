@@ -93,6 +93,7 @@
 				<!-- <span class="help-block">block help text</span> -->
 			</div>
 		</div>
+		<div id="files"></div>
 		<div class="control-group">
 			<?php echo form_label('Perfil','',array("class"=>"control-label"));?>
 			<div class="controls">
@@ -116,7 +117,7 @@
 	<!-- Popup Edicion Registros -->
 	<div id="editDialog" title="Editar Empleo" >
 		<div>
-			<form action="" method="post" class="form-horizontal well">
+			<form id="form_edit_empleo" action="" method="post" class="form-horizontal well">
 				<fieldset>
 					<!-- <p class="f_legend">Modificar Anuncio Empleo</p> -->
 					<div class="control-group">
@@ -153,9 +154,9 @@
 							<input type="file" class="span3 uni_style" name="txt_perfil_up" id="txt_perfil_up" size="43" />
 						</div>
 					</div>					
+					<input type="hidden" id="txt_upd_nEmplId" name="txt_upd_nEmplId" />
 
 
-					<input type="hidden" id="txt_upd_nEmplId" name="id" />
 				</fieldset>
 			</form>
 		</div>
