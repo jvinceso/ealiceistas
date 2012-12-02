@@ -98,8 +98,7 @@ class Empleos extends CI_Controller {
 			if (!$this->upload->do_upload($file_element_name))
 			{
 				$status = 'error';
-				$msg = $file_element_name;
-			   // $msg = $this->upload->display_errors('', '');
+			   	$msg = $this->upload->display_errors('', '');
 			}
 			else
 			{

@@ -11,7 +11,7 @@
 	margin-top: 20px;
 }
 </style>
-<script type="text/javascript" src="<?php echo URL_JS ?>empleos/empleos.js"></script>
+<script type="text/javascript" src="<?php echo URL_JS ?>bolsa/empleos.js"></script>
 <script type="text/javascript" src='<?php echo URL_JS; ?>ajaxfileupload.js'></script>
 <center>
 	<div id="ajaxLoadAni">

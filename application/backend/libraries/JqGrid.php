@@ -201,7 +201,7 @@ class JqGrid {
         $grid .= "});";
 //NavBar
         //$grid .= " $('#$buildDivName').jqGrid('navGrid','#pager',{search:true,edit:false,add:true,del:true});";
-        $grid .= "$('#$buildDivName').jqGrid('navGrid',$pager,{search:false,edit:false,add:false,del:false}, {})";
+        $grid .= "$('#$buildDivName').jqGrid('navGrid','#$pager',{search:false,edit:false,add:false,del:false}, {})";
 
         if (!empty($buildCustomButtons)) {
             foreach ($buildCustomButtons as $customButton) {
