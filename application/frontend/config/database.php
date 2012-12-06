@@ -50,9 +50,9 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
-$db['default']['password'] = '';
-$db['default']['database'] = 'amcbbd';
-$db['default']['dbdriver'] = 'mysql';
+$db['default']['password'] = '123';
+$db['default']['database'] = 'bd_aeal';
+$db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = FALSE;
