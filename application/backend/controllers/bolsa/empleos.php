@@ -161,7 +161,6 @@ class Empleos extends CI_Controller {
 			redirect('login/logins');
 		}
 	} 	
-
 }
 
 /* End of file empleos.php */

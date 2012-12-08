@@ -56,7 +56,7 @@ nProId
 			</fieldset>
 		</form>
 	</div>
-	<div id="frm_profesional_new" class="switch" >
+	<div id="frm_profesional_new" class="switch" style="display:none" >
 		<?php
 		$atributosForm    = array('id ' => 'frm_profesional',"class"=>"form-horizontal well");
 		$txt_carrera      = array('name' => 'txt_carrera', 'id' => 'txt_carrera','required' => 'required','class'=>'span5');
