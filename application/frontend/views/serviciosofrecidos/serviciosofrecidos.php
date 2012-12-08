@@ -1,32 +1,38 @@
 <div id="posts">
     <!-- staff -->
     <ul class="staff">
-        <li>
-            <img width="130" height="155" alt="Pic" src="<?php echo URL_IMG; ?>guy.png">
-            <div class="information">
-                <div class="header">
-                    <div class="name"><cufon class="cufon cufon-canvas" alt="DIEGO ARMANDO CASTRO AURORA " style="width: 41px; height: 24px;"><canvas width="58" height="27" style="width: 58px; height: 27px; top: -5px; left: -1px;"></canvas><cufontext>DIEGO ARMANDO CASTRO AURORA </cufontext></cufon></div>
-                    <div class="name"><cufon class="cufon cufon-canvas" alt="INGENIERO DE SISTEMAS " style="width: 41px; height: 24px;"><canvas width="58" height="27" style="width: 58px; height: 27px; top: -5px; left: -1px;"></canvas><cufontext>INGENIERO DE SISTEMAS </cufontext></cufon></div>
-                    <div class="contact">Web Designer / <a href="#">Website</a> / john@doe.com</div>
+        <?php
+        // print_r($registros);exit();
+        foreach ($registros as $fila) {
+            ?>
+            <li>
+                <img width="130" height="155" alt="Pic" src="<?php echo URL_IMG; ?>guy.png">
+                <div class="information">
+                    <div class="header">
+                        <div class="name">
+                            <cufontext><?php echo $fila['cProNombre']?></cufontext>
+                        </div>
+                        <div class="name">
+                            <!-- <cufon class="cufon cufon-canvas" alt="INGENIERO DE SISTEMAS " style="width: 41px; height: 24px;"> -->
+                            <!-- <canvas width="58" height="27" style="width: 58px; height: 27px; top: -5px; left: -1px;"></canvas> -->
+                            <cufontext><?php echo $fila['cProCarrera']?></cufontext>
+                            <!-- </cufon> -->
+                        </div>
+                        <div class="contact"><a id="downloade" target="_BLANK" href="<?php echo URL_DOWN_CV.$fila['cProCurriculum']?>">Curriculum</a>  / <a href="<?php echo $fila['cProWeb']?>">Website</a> / <?php echo $fila['cProEmail']?></div>
+                    </div>
+                    <div>
+                        <p>
+                            <?php echo $fila['cProDescripcion']?>
+                        </p>
+                    </div>
                 </div>
-                <div>
-                    <p>Soy Ingeniero de Sistemas graduado de la Universidad Nacional de Trujillo.</p>
-                </div>
-            </div>
-        </li>
-        <li>
-            <img width="130" height="155" alt="Pic" src="<?php echo URL_IMG; ?>girl.png">
-            <div class="information">
-                <div class="header">
-                    <div class="name"><cufon class="cufon cufon-canvas" alt="MARIELA LUJAN TERRONES " style="width: 41px; height: 24px;"><canvas width="58" height="27" style="width: 58px; height: 27px; top: -5px; left: -1px;"></canvas><cufontext>MARIELA LUJAN TERRONES </cufontext></cufon></div>
-                    <div class="name"><cufon class="cufon cufon-canvas" alt="OBSTETRIS " style="width: 41px; height: 24px;"><canvas width="58" height="27" style="width: 58px; height: 27px; top: -5px; left: -1px;"></canvas><cufontext>OBSTETRIS </cufontext></cufon></div>
-                    <div class="contact">Web Designer / <a href="#">Website</a> / john@doe.com</div>
-                </div>
-                <div>
-                    <p>Soy Obstetris, graduada de la Universidad Privada Antenor Orrego.</p>
-                </div>
-            </div>
-        </li>
+            </li>            
+            <?php
+        }
+        ?>
     </ul>
     <!-- ENDS staff -->
+    <div>
+      <?php echo $links;?>
+    </div>    
 </div>

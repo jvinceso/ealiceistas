@@ -24,6 +24,8 @@ define('DIR_WRITE_MODE', 0777);
 define('URL_CSS', 'http://localhost/ealiceistas/frontend/css/');
 define('URL_JS', 'http://localhost/ealiceistas/frontend/js/');
 define('URL_IMG', 'http://localhost/ealiceistas/frontend/images/'); 
+define('URL_DOWN_CV', 'http://localhost/ealiceistas/cv/'); 
+define('URL_DOWN_FILES', 'http://localhost/ealiceistas/files/'); 
 define('URL_MAIN', 'http://localhost/ealiceistas/frontend'); 
 define('KEY_ENCRIPT', 'sdy38s829Mpt2012osjdao9ZXD93'); 
 

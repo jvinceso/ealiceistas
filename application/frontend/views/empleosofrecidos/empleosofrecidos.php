@@ -16,7 +16,7 @@
             <p><?php echo $fila['cEOfSumilla']; ?></p>
           </div>
         </div>
-        <a class="link-button right" href="../anuncio/<?php echo $fila['nEOfId']?>/<?php echo str_replace(' ','-',$fila['cEOfTitulo'])?>">
+        <a class="link-button right" href="empleosofrecidos/anuncio/<?php echo $fila['nEOfId']?>/<?php echo str_replace(' ','-',$fila['cEOfTitulo'])?>">
           <span>Ver Mas</span>
         </a>
       </li>
@@ -47,7 +47,7 @@
           <p><?php echo $fila->cEOfDescripcion?></p>
           <p>
             <?php echo $fila->cEOfDescripcion?>
-            <a id="download" class="link-button right" href="../empleosofrecidos/documentoGetPDF/<?php echo $fila->cEOfBases ?>" data-down="<?php echo $fila->cEOfBases ?>">
+            <a id="download" class="link-button right" target="_BLANK" href="<?php echo URL_DOWN_FILES.$fila->cEOfBases ?>">
               <span>Descargar Perfil</span>
             </a>
           </p>
@@ -56,26 +56,5 @@
       </div>
       <!-- ENDS post -->
     </div>      
-    <script type="text/javascript">
-    $('#download').click(function(evt){
-      evt.preventDefault();
-      var data = $(this).attr('data-down');
-      alert(data);
-      // $(function(){
-          window.open('../../../../files/'+data,'_blank');
-      // });      
-/*      var iframe;
-      var hiddenIFrameID = 'hiddenDownloader';
-      iframe = document.getElementById(hiddenIFrameID);
-      if (iframe === null) {
-          iframe = document.createElement('iframe');  
-          iframe.id = hiddenIFrameID;
-          iframe.style.display = 'none';
-          document.body.appendChild(iframe);
-      }
-      iframe.src = url;*/
-
-    });
-    </script>
     <?php
   } ?>

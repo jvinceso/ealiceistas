@@ -29,9 +29,9 @@ class Servicios_model extends CI_Model {
 		$limit = intval($limit);
 		$start = intval($start);
 		$this->db->limit($limit,$start);
-		$where = "dEOfFechaLimite > current_date";
+		// $where = "dEOfFechaLimite > current_date";
 
-		$result = $this->db->where('nProEstado',1)->where($where)->order_by("nProId", "DESC")->get('profesional_servicio');
+		$result = $this->db->where('nProEstado',1)->order_by("nProId", "DESC")->get('profesional_servicio');
 		if($result){
 			return $result->result_array();
 		}else{
